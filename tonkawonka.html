@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TonkaWonka | Tough Cars for Adventurers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const closeBtn = document.getElementById('closeModal');
+  const thumbnails = document.querySelectorAll('.thumbnail-trigger');
+
+  if (modal && modalImg && closeBtn) {
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImg.src = thumb.src;
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bone:#F5F0E8;
+  --bone-dark:#EDE6D6;
+  --gold:#B8924A;
+  --gold-light:#D4AD6F;
+  --gold-pale:#F0E4C8;
+  --ink:#1A1714;
+  --ink-soft:#3D3530;
+  --muted:#7A7068;
+  --white:#FFFFFF;
+  --rule:rgba(184,146,74,0.28);
+  --nav-h:58px;
+  --rugged:#8B4513; /* Saddle brown for toughness */
+  --rugged-light:#A0522D;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Montserrat',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
+img{display:block;width:100%;object-fit:cover}
+a{text-decoration:none;color:inherit}
+button{font-family:'Montserrat',sans-serif;cursor:pointer;border:none;background:none}
+
+
+/* ─── TOP BAR ─── */
+.top-bar{
+  background:var(--ink);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:36px;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.55);
+}
+.top-bar a{color:rgba(245,240,232,.55);transition:color .25s}
+.top-bar a:hover{color:var(--gold-light)}
+.top-bar-left,.top-bar-right{display:flex;align-items:center;gap:2rem}
+.top-bar-divider{width:1px;height:14px;background:rgba(255,255,255,.15)}
+
+/* ─── PRIMARY NAV ─── */
+.primary-nav{
+  position:sticky;top:0;z-index:200;
+  background:var(--white);
+  border-bottom:1px solid var(--rule);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:var(--nav-h);
+}
+.nav-logo{text-align:center}
+.nav-logo-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;letter-spacing:.12em;
+  color:var(--ink);line-height:1.1;
+}
+.nav-logo-sub{
+  font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rugged);margin-top:2px;
+}
+.nav-links{display:flex;gap:.25rem;list-style:none}
+.nav-links>li>a,.nav-links>li>span{
+  display:block;padding:.5rem .85rem;
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);transition:color .25s;
+  cursor:pointer;
+}
+.nav-links>li>a:hover,.nav-links>li>span:hover{color:var(--rugged)}
+.nav-reserve{
+  background:var(--rugged);color:var(--white);
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:.6rem 1.4rem;transition:background .25s;
+  font-family:'Montserrat',sans-serif;font-weight:500;
+}
+.nav-reserve:hover{background:var(--ink)}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;height:100vh;min-height:600px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 30% 60%,rgba(139,69,19,.12) 0%,transparent 60%),
+    radial-gradient(ellipse at 75% 30%,rgba(28,48,40,.25) 0%,transparent 55%),
+    linear-gradient(170deg,#2B2318 0%,#1A1714 40%,#654321 100%);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;padding:2rem;
+}
+.hero-eyebrow{
+  font-size:.62rem;letter-spacing:.38em;text-transform:uppercase;
+  color:var(--rugged);margin-bottom:1.8rem;
+  animation:fadeUp .9s ease both;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,6.5vw,5.6rem);
+  font-weight:400;line-height:1.08;letter-spacing:.04em;
+  color:var(--white);
+  animation:fadeUp .9s .12s ease both;
+}
+.hero-title em{font-style:italic;color:var(--rugged-light)}
+.hero-rule{
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  margin:1.6rem 0;
+  animation:fadeUp .9s .22s ease both;
+}
+.hero-rule::before,.hero-rule::after{content:'';display:block;width:56px;height:1px;background:rgba(139,69,19,.5)}
+.hero-diamond{width:6px;height:6px;background:var(--rugged);transform:rotate(45deg)}
+.hero-diamond{width:6px;height:6px;background:var(--rugged);transform:rotate(45deg);flex-shrink:0}
+.hero-tagline{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.1rem;line-height:1.4;color:rgba(245,240,232,.8);
+  max-width:480px;margin:0 auto;
+  animation:fadeUp .9s .32s ease both;
+}
+.hero-cta{
+  margin-top:2.4rem;
+  animation:fadeUp .9s .42s ease both;
+}
+.hero-cta .btn{
+  display:inline-block;padding:1rem 2.2rem;
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--rugged);color:var(--white);
+  transition:background .25s;
+}
+.hero-cta .btn:hover{background:var(--ink)}
+
+/* ─── SECTIONS ─── */
+.section{
+  padding:6rem 3rem;text-align:center;
+}
+.section h2{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;margin-bottom:1.5rem;color:var(--ink);
+}
+.section p{
+  font-size:1rem;line-height:1.6;color:var(--muted);
+  max-width:600px;margin:0 auto;
+}
+
+/* ─── MODAL / POPUP ─── */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(26,23,20,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-content {
+  max-width: 90%;
+  max-height: 80vh;
+  object-fit: contain;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+.thumbnail-trigger {
+  cursor: pointer;
+  transition: opacity .25s;
+  margin-top: 1rem;
+}
+.thumbnail-trigger:hover {
+  opacity: 0.8;
+}
+.close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ─── FEATURES ─── */
+.features{
+  background:var(--bone);
+}
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;
+  max-width:1000px;margin:3rem auto 0;
+}
+.feature{
+  padding:2rem;background:var(--white);border:1px solid var(--rule);
+}
+.feature h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;margin-bottom:1rem;color:var(--ink);
+}
+.feature p{
+  font-size:.9rem;line-height:1.5;color:var(--muted);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{
+  0%{opacity:0;transform:translateY(20px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <a href="#">Adventure Awaits</a>
+    <div class="top-bar-divider"></div>
+    <a href="#">Tough Builds</a>
+  </div>
+  <div class="top-bar-right">
+    <a href="#">Contact</a>
+    <div class="top-bar-divider"></div>
+    <a href="#">Support</a>
+  </div>
+</div>
+
+<!-- Primary Nav -->
+<nav class="primary-nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-name">TonkaWonka</div>
+      <div class="nav-logo-sub">Tough Cars</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#models">Models</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-reserve">Test Drive</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Unbreakable Spirit</div>
+    <h1 class="hero-title">Tonka<em>Wonka</em></h1>
+    <div class="hero-rule">
+      <div class="hero-rule::before"></div>
+      <div class="hero-diamond"></div>
+      <div class="hero-rule::after"></div>
+    </div>
+    <div class="hero-rule"><div class="hero-diamond"></div></div>
+    <p class="hero-tagline">Built like Tonka toys, engineered for real-world toughness. Conquer any terrain with the TonkaWonka, the car that never quits.</p>
+    <div class="hero-cta">
+      <a href="#models" class="btn">Explore Models</a>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section features" id="features">
+  <h2>Why TonkaWonka?</h2>
+  <p>Designed for adventurers who demand durability, reliability, and unyielding performance in the harshest conditions.</p>
+  <div class="features-grid">
+    <div class="feature">
+      <h3>Unbreakable Frame</h3>
+      <p>Reinforced chassis that withstands impacts and rough terrain, just like the original Tonka toys.</p>
+    </div>
+    <div class="feature">
+      <h3>All-Terrain Mastery</h3>
+      <p>Advanced 4x4 system with superior traction for mud, rocks, and snow.</p>
+    </div>
+    <div class="feature">
+      <h3>Rugged Exterior</h3>
+      <p>Scratch-resistant paint and heavy-duty bumpers built to last a lifetime.</p>
+    </div>
+    <div class="feature">
+      <h3>Reliable Engine</h3>
+      <p>Powerful, fuel-efficient engine that performs in extreme temperatures.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Models -->
+<section class="section" id="models">
+  <h2>Our Models</h2>
+  <p>Choose from our lineup of tough vehicles, each designed for specific adventures.</p>
+  <div class="features-grid">
+<!--     <div class="feature">
+      <h3>TonkaWonka Explorer</h3>
+      <p>Perfect for off-road expeditions and family adventures.</p>
+    </div> -->
+
+    <div class="feature">
+      <h3>TonkaWonka Warrior</h3>
+      <p>Military-grade toughness for the most demanding missions.</p>
+      <img src="images/tad.png" alt="Warrior">
+      <img src="images/twa.png" alt="Warrior" class="thumbnail-trigger">
+    </div>
+
+    <div class="feature">
+      <h3>TonkaWonka Adventure</h3>
+      <p>Compact yet powerful, ideal for urban explorers and weekend warriors.</p>
+      <img src="images/tad.png" alt="Adventure">
+
+      <img src="images/tad.png" alt="Adventure" class="thumbnail-trigger">
+    </div>
+  </div>
+</section>
+
+<!-- Global Image Modal -->
+<div id="imageModal" class="modal">
+  <span id="closeModal" class="close-btn">&times;</span>
+  <img id="modalImg" class="modal-content" src="" alt="Enlarged View">
+</div>
+
+
+
+<!-- Contact -->
+<section class="section features" id="contact">
+  <h2>Contact Us</h2>
+  <p>Ready to experience the toughness? Get in touch for a test drive or more information.</p>
+  <p>Email: info@tonkawonka.com | Phone: (123) 456-7890</p>
+</section>
+
+</body>
+</html>
