@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TonkaWonka has tough cars.">
+<meta name="author" content="Risto Ikonen">
+<meta name="keywords" content="tonkawonka,cars, radar, sar">
+<title>Tonkawonka | Sparta concept car</title>
+<style>
+    :root {
+        --bg-primary: #121214;
+        --bg-secondary: #1a1a1e;
+        --accent-orange: #ff6b00;
+        --radar-green: #00ff66;
+        --text-main: #e2e8f0;
+        --text-muted: #64748b;
+        --border-color: #2e2e38;
+        --bgc:#F5F0E8;
+        --bgd:#563A1E;
+            --rugged:#8B4513; /* Saddle brown for toughness */
+        --rugged-light:#A0522D;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-bg{
+    
+    background:
+        radial-gradient(ellipse at 30% 60%,rgba(139,69,19,.12) 0%,transparent 60%),
+        radial-gradient(ellipse at 75% 30%,rgba(28,48,40,.25) 0%,transparent 55%),
+        linear-gradient(170deg,#251B14 0%,#1A1714 40%,#654321 100%);
+    }
+
+
+    body {
+        background-color: var(--bgd);
+        color: var(--text-main);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        padding: 2rem 1rem;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    header {
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 1.5rem;
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+
+    .topi div {
+        color: var(--bgc);
+        font-size: 0.9rem;
+        font-family:'Montserrat',sans-serif;font-weight:500;
+    }
+
+    .logo-area h1 {
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent-orange);
+    }
+
+    .logo-area p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-family: monospace;
+    }
+
+    .version {
+        font-family: monospace;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .grid {
+            grid-template-columns: 1.2fr 0.8fr;
+        }
+    }
+
+    .card {
+        
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--accent-orange);
+    }
+
+    .card.telemetry::before {
+        background: var(--radar-green);
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        color: #fff;
+    }
+
+    p {
+        margin-bottom: 1rem;
+        color: #cbd5e1;
+    }
+
+    .spec-list {
+        list-style: none;
+        margin-top: 1.5rem;
+        font-family: monospace;
+    }
+
+    .spec-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed var(--border-color);
+    }
+
+    .spec-list span:first-child {
+        color: var(--text-muted);
+    }
+
+    /* Decca-inspired Radar Widget Styling */
+    .radar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    .radar-scope {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        border: 2px solid var(--radar-green);
+        background: radial-gradient(circle, rgba(0,255,102,0.15) 0%, rgba(0,0,0,0.8) 80%);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+    }
+
+    .radar-sweep {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background: linear-gradient(45deg, rgba(0,255,102,0.4) 0%, rgba(0,255,102,0) 70%);
+        transform-origin: bottom right;
+        top: 0;
+        left: 0;
+        animation: sweep 4s linear infinite;
+    }
+
+    .radar-grid-line {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px dashed rgba(0, 255, 102, 0.3);
+        border-radius: 50%;
+    }
+
+    .line-1 { width: 70%; height: 70%; }
+    .line-2 { width: 40%; height: 40%; }
+
+    .radar-cross-h {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background: rgba(0, 255, 102, 0.2);
+    }
+
+    .radar-cross-v {
+        position: absolute;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        background: rgba(0, 255, 102, 0.2);
+    }
+
+    .blip {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: var(--radar-green);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--radar-green);
+        top: 35%;
+        left: 65%;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes sweep {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+        0% { opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { opacity: 0.4; }
+    }
+
+    footer {
+        margin-top: 5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+        font-family: monospace;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
+    /* ─── PRIMARY NAV ─── */
+    .primary-nav{
+    position:sticky;top:0;z-index:200;
+    background:var(--white);
+    border-bottom:1px solid var(--rule);
+    }
+    .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 3rem;height:var(--nav-h);
+    }
+    .nav-logo{text-align:center}
+    .nav-logo-name{
+    font-family:'Playfair Display',serif;
+    font-size:1.1rem;letter-spacing:.12em;
+    color:var(--ink);line-height:1.1;
+    }
+    .nav-logo-sub{
+    font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--rugged);margin-top:2px;
+    }
+    .nav-links{display:flex;gap:.25rem;list-style:none}
+    .nav-links>li>a,.nav-links>li>span{
+    display:block;padding:.5rem .85rem;
+    font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-soft);transition:color .25s;
+    cursor:pointer;
+    }
+    .nav-links>li>a:hover,.nav-links>li>span:hover{color:var(--rugged)}
+    .nav-reserve{
+    background:var(--rugged);color:var(--white);
+    font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+    padding:.6rem 1.4rem;transition:background .25s;
+    font-family:'Montserrat',sans-serif;font-weight:500;
+    }
+    .nav-reserve:hover{background:var(--ink)}
+
+    .hero-title{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.8rem,6.5vw,5.6rem);
+    font-weight:400;line-height:1.08;letter-spacing:.04em;
+    color:var(--white);
+    animation:fadeUp .9s .12s ease both;
+    }
+    .hero-title em{font-style:italic;color:var(--rugged-light)}
+
+
+    /* ─── TOP BAR ─── */
+    .top-bar{
+    background:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 3rem;height:36px;
+    font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.55);
+    }
+    .top-bar a{color:rgba(245,240,232,.55);transition:color .25s}
+    .top-bar a:hover{color:var(--gold-light)}
+    .top-bar-left,.top-bar-right{display:flex;align-items:center;gap:2rem}
+    .top-bar-divider{width:1px;height:14px;background:rgba(255,255,255,.15)}
+
+
+    </style>
+</head>
+<body class="hero-bg">
+<div class="container">
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    
+    <div class="top-bar-divider"></div>
+    
+  </div>
+  <div class="top-bar-right">
+    <a href="index.html">Main page</a>
+    <div class="top-bar-divider"></div>
+    <a href="#">Contact</a>
+    <div class="top-bar-divider"></div>
+    <a href="#">Support</a>
+    <!-- <button class="nav-reserve" type="button"><a href="index.html">PROJECT SPARTA</a></button> -->
+  </div>
+  
+</div>
+
+
+
+
+    <header >
+   
+        <div class="hero-content">
+            <div class="hero-eyebrow">PROJECT SPARTA</div>
+            <div class="nav-logo-sub">SYS_VER // 9.0.26</div>
+            <div class="hero-bg">
+            div>
+            <h1 class="hero-title">Tonka<em>Wonka</em></h1>
+        </div>
+            <section class="hero" id="home"></section>
+    </header>
+   
+    <div class="grid">
+        <!-- Main Asset Presentation Panel -->
+        <main class="card">
+            <h2>Design Profile: Sparta Radar Concept</h2>
+            <p>The Sparta variant focuses strictly on uncompromised structural rigidity and high-clearance mechanical performance with powerful radar capability. 
+                Stripping back standard panels, it implements an aggressive, exposed exoskeleton architecture built to withstand severe environmental operational testing.</p>
+            
+            <!-- <p style="color: var(--text-muted); font-style: italic; margin-top: 2rem;">
+                [Place your newly generated TankX Sparta visual asset here using your preferred media tags]
+            </p>
+            -->
+
+            <img src="images/spartadecca.png" alt="Sparta Decca Model" style="width: 100%; max-width: 800px; margin: 1rem auto; display: block; border-radius: 6px; border: 1px solid var(--border-color);">
+
+
+            <ul class="spec-list">
+                <li><span>CHASSIS CLASS</span><span>BRUTALIST / EXOSKELETON</span></li>
+                <li><span>SUSPENSION CLEARANCE</span><span>520 MM ARTICULATED</span></li>
+                <li><span>RADAR CAPABILITY</span><span>SYNTHETIC APERTURE RADAR (SAR)</span></li>
+                <li><span>ARMOR CONFIGURATION</span><span>SLOPED MONOLITHIC PLATES</span></li>
+                <li><span>PROPULSION INTEGRATION</span><span>QUAD-MOTOR INDEPENDENT</span></li>
+            </ul>
+        </main>
+
+        <!-- Auxiliary Telemetry Widget Panel -->
+        <aside class="card telemetry">
+            <h2>Decca Radar Telemetry</h2>
+            <p>Vintage sweeps combined with modern Synthetic Aperture Radar data arrays to monitor drone, 3D chassis positioning and other obstacle indexing.</p>
+            
+            <div class="radar-container">
+                <div class="radar-scope">
+                    <div class="radar-sweep"></div>
+                    <div class="radar-grid-line line-1"></div>
+                    <div class="radar-grid-line line-2"></div>
+                    <div class="radar-cross-h"></div>
+                    <div class="radar-cross-v"></div>
+                    <div class="blip"></div>
+                </div>
+            </div>
+
+            <ul class="spec-list" style="margin-top: 1rem; font-size: 0.85rem;">
+                <li><span>SWEEP INDEX</span><span>AUTO_24_RPM</span></li>
+                <li><span>RANGE FOCUS</span><span>4.5 NAUTICAL MILES</span></li>
+                <li><span>TARGET LOCK</span><span>SPARTA_ALPHA_01</span></li>
+                <li><span>MICROWAVE BAND</span><span>3 - 100 cm</span></li>
+            </ul>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Risto Ikonen. Built for local development testing via GitHub Pages.</p>
+    </footer>
+</div>
+
+</body>
+</html>
