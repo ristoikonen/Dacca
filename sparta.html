@@ -7,6 +7,37 @@
 <meta name="author" content="Risto Ikonen">
 <meta name="keywords" content="tonkawonka,cars, radar, sar">
 <title>Tonkawonka | Sparta concept car</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const closeBtn = document.getElementById('closeModal');
+  const thumbnails = document.querySelectorAll('.thumbnail-trigger');
+
+  if (modal && modalImg && closeBtn) {
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImg.src = thumb.src;
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
 <style>
     :root {
         --bg-primary: #121214;
@@ -27,6 +58,51 @@
         margin: 0;
         padding: 0;
     }
+
+    img{display:block;width:100%;object-fit:cover}
+
+
+    /* ─── MODAL / POPUP ─── */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(26,23,20,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-content {
+  max-width: 90%;
+  max-height: 80vh;
+  object-fit: contain;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+    .thumbnail-trigger {
+  cursor: pointer;
+  transition: opacity .25s;
+  margin-top: 1rem;
+}
+.thumbnail-trigger:hover {
+  opacity: 0.8;
+}
+.close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
+  line-height: 1;
+}
 
     .hero-bg{
     
@@ -332,10 +408,8 @@
         <div class="hero-content">
             <div class="hero-eyebrow">PROJECT SPARTA</div>
             <div class="nav-logo-sub">SYS_VER // 9.0.26</div>
-            <div class="hero-bg">
-            div>
+          
             <h1 class="hero-title">Tonka<em>Wonka</em></h1>
-        </div>
             <section class="hero" id="home"></section>
     </header>
    
@@ -351,8 +425,7 @@
             </p>
             -->
 
-            <img src="images/spartadecca.png" alt="Sparta Decca Model" style="width: 100%; max-width: 800px; margin: 1rem auto; display: block; border-radius: 6px; border: 1px solid var(--border-color);">
-
+            <img src="images/spartadecca.png" alt="Sparta Decca Model" class="thumbnail-trigger" >
 
             <ul class="spec-list">
                 <li><span>CHASSIS CLASS</span><span>BRUTALIST / EXOSKELETON</span></li>
@@ -361,6 +434,10 @@
                 <li><span>ARMOR CONFIGURATION</span><span>SLOPED MONOLITHIC PLATES</span></li>
                 <li><span>PROPULSION INTEGRATION</span><span>QUAD-MOTOR INDEPENDENT</span></li>
             </ul>
+
+                        
+
+
         </main>
 
         <!-- Auxiliary Telemetry Widget Panel -->
@@ -385,12 +462,39 @@
                 <li><span>TARGET LOCK</span><span>SPARTA_ALPHA_01</span></li>
                 <li><span>MICROWAVE BAND</span><span>3 - 100 cm</span></li>
             </ul>
+
         </aside>
+
+                <!-- Auxiliary Telemetry Widget Panel -->
+        <aside class="card telemetry">
+                        <h2>Design Profile: The Dirty version</h2>
+            <p>Prototype is in dev but rough already.</p>
+            <img src="images/SpartaR.png" alt="Sparta R Model" class="thumbnail-trigger" >
+
+            <ul class="spec-list">
+                <li><span>CHASSIS CLASS</span><span>BRUTALIST / EXOSKELETON</span></li>
+                <li><span>SUSPENSION CLEARANCE</span><span>660 MM ARTICULATED</span></li>
+                <li><span>ARMOR CONFIGURATION</span><span>SLOPED MONOLITHIC TITANIUM PLATES</span></li>
+                <li><span>PROPULSION INTEGRATION</span><span>DUAL-MOTOR INDEPENDENT</span></li>
+            </ul>
+
+        </aside>
+
+
     </div>
+
+
 
     <footer>
         <p>&copy; 2026 Risto Ikonen. Built for local development testing via GitHub Pages.</p>
     </footer>
+
+    <!-- Global Image Modal -->
+    <div id="imageModal" class="modal">
+        <span id="closeModal" class="close-btn">&times;</span>
+        <img id="modalImg" class="modal-content" src="" alt="Enlarged View">
+    </div>
+
 </div>
 
 </body>
