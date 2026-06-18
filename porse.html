@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TonkaWonka car are tough.">
+    <meta name="author" content="Risto Ikonen">
+    <meta name="keywords" content="tonkawonka,cars, radar, sar">
+
+    <title>TonkaWonka // Project Sparta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #121214;
+            --bg-secondary: #1a1a1e;
+            --accent-orange: #ff6b00;
+            --radar-green: #00ff66;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+            --border-color: #2e2e38;
+            --rule:rgba(184,146,74,0.28);
+            --nav-h:58px;
+            --rugged:#8B4513; /* Saddle brown for toughness */
+            --rugged-light:#A0522D;
+            --bgc:#F5F0E8;
+            --bgd:#563A1E;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            background-color: #0b0b0d;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topi div {
+            color: var(--bgc);
+            font-size: 0.9rem;
+            font-family:'Montserrat',sans-serif;font-weight:500;
+        }
+
+        .nav-brand {
+            font-family: monospace;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .nav-separator {
+            color: var(--border-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            font-family: monospace;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        header h1 em {
+            font-style: normal;
+            color: var(--accent-orange);
+        }
+
+        .header-stripe {
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange) 0%, transparent 70%);
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive Content Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 992px) {
+            .grid {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2rem;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .card p {
+            margin-bottom: 1.5rem;
+            color: #cbd5e1;
+        }
+
+        /* --- COOL UL/LI CUSTOM DROPDOWN SELECTOR --- */
+        .dropdown-wrapper {
+            position: relative;
+            margin: 1.5rem 0;
+            font-family: monospace;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .dropdown-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .custom-dropdown {
+            list-style: none;
+            background: #111113;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Current Selection Header Container */
+        .dropdown-trigger {
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .dropdown-trigger::after {
+            content: '▼';
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        .custom-dropdown.open .dropdown-trigger::after {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Options List Box */
+        .dropdown-menu {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: -1px;
+            right: -1px;
+            background: #111113;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .custom-dropdown.open .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            color: var(--text-main);
+            border-top: 1px dashed rgba(46, 46, 56, 0.5);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg-secondary);
+            color: #fff;
+        }
+
+        /* Showcase Image */
+        .showcase-container {
+            background-color: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 320px;
+        }
+
+        .showcase-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        /* Dynamic Specification Tables */
+        .spec-list {
+            list-style: none;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: none; /* Controlled dynamically via JS */
+        }
+
+        .spec-list.active {
+            display: block;
+        }
+
+        .spec-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .spec-list span:first-child {
+            color: var(--text-muted);
+        }
+
+        .spec-list span:last-child {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Integrated Decca Radar Style Component */
+        .radar-panel {
+            border-left: 4px solid var(--radar-green);
+        }
+
+        .radar-container {
+            display: flex;
+            justify-content: center;
+            padding: 1.5rem 0;
+        }
+
+        .radar-scope {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            border: 2px solid var(--radar-green);
+            background: radial-gradient(circle, rgba(0,255,102,0.12) 0%, rgba(0,0,0,0.85) 80%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+        }
+
+        .radar-sweep {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: linear-gradient(45deg, rgba(0,255,102,0.35) 0%, rgba(0,255,102,0) 60%);
+            transform-origin: bottom right;
+            top: 0;
+            left: 0;
+            animation: sweep 4s linear infinite;
+        }
+
+        .radar-grid-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px dashed rgba(0, 255, 102, 0.25);
+            border-radius: 50%;
+        }
+
+        .line-1 { width: 75%; height: 75%; }
+        .line-2 { width: 45%; height: 45%; }
+
+        .radar-cross-h {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 255, 102, 0.15);
+        }
+
+        .radar-cross-v {
+            position: absolute;
+            left: 50%;
+            width: 1px;
+            height: 100%;
+            background: rgba(0, 255, 102, 0.15);
+        }
+
+        .blip-chassis {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: var(--radar-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--radar-green);
+            top: 42%;
+            left: 58%;
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes sweep {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        /* Lightbox Layout */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85%;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            font-family: monospace;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-family: monospace;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+
+    /* ─── PRIMARY NAV ─── */
+    .primary-nav{
+    position:sticky;top:0;z-index:200;
+    background:var(--white);
+    border-bottom:1px solid var(--rule);
+    }
+    .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 3rem;height:var(--nav-h);
+    }
+    .nav-logo{text-align:center}
+    .nav-logo-name{
+    font-family:'Playfair Display',serif;
+    font-size:1.1rem;letter-spacing:.12em;
+    color:var(--ink);line-height:1.1;
+    }
+    .nav-logo-sub{
+    font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--rugged);margin-top:2px;
+    }
+    .nav-links{display:flex;gap:.25rem;list-style:none}
+    .nav-links>li>a,.nav-links>li>span{
+    display:block;padding:.5rem .85rem;
+    font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-soft);transition:color .25s;
+    cursor:pointer;
+    }
+    .nav-links>li>a:hover,.nav-links>li>span:hover{color:var(--rugged)}
+    .nav-reserve{
+    background:var(--rugged);color:var(--white);
+    font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+    padding:.6rem 1.4rem;transition:background .25s;
+    font-family:'Montserrat',sans-serif;font-weight:500;
+    }
+    .nav-reserve:hover{background:var(--ink)}
+
+    .hero-title{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.8rem,6.5vw,5.6rem);
+    font-weight:400;line-height:1.08;letter-spacing:.04em;
+    color:var(--white);
+    animation:fadeUp .9s .12s ease both;
+    }
+    .hero-title em{font-style:italic;color:var(--rugged-light)}
+
+    .hero-bg{
+    
+    background:
+        radial-gradient(ellipse at 30% 60%,rgba(139,69,19,.12) 0%,transparent 60%),
+        radial-gradient(ellipse at 75% 30%,rgba(28,48,40,.25) 0%,transparent 55%),
+        linear-gradient(170deg,#251B14 0%,#1A1714 40%,#654321 100%);
+    }
+
+
+    /* ─── TOP BAR ─── */
+    .top-bar{
+    background:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 3rem;height:36px;
+    font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.55);
+    }
+    .top-bar a{color:rgba(245,240,232,.55);transition:color .25s}
+    .top-bar a:hover{color:var(--gold-light)}
+    .top-bar-left,.top-bar-right{display:flex;align-items:center;gap:2rem}
+    .top-bar-divider{width:1px;height:14px;background:rgba(255,255,255,.15)}
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+
+
+<body class="hero-bg">
+<div class="container">
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    
+    <div class="top-bar-divider"></div>
+    
+  </div>
+  <div class="top-bar-right">
+    <a href="index.html">Main page</a>
+    <div class="top-bar-divider"></div>
+    <a href="#">Contact</a>
+    <div class="top-bar-divider"></div>
+    <a href="#">Support</a>
+    <!-- <button class="nav-reserve" type="button"><a href="index.html">PROJECT SPARTA</a></button> -->
+  </div>
+  
+</div>
+
+
+
+
+    <header >
+   
+        <div class="hero-content">
+            <div class="hero-eyebrow">PROJECT SPARTA</div>
+            <div class="nav-logo-sub">SYS_VER // 9.0.26</div>
+          
+            <h1 class="hero-title">Tonka<em>Wonka</em></h1>
+            <section class="hero" id="home"></section>
+    </header>
+
+        <div class="grid">
+            <main class="card">
+                <h2>Design Profile: Sparta Core Modules</h2>
+                <p>Select a modular configuration payload utilizing the secure selector interface frame below to deploy distinctive functional metrics across the base monocoque architecture.</p>
+                
+                <div class="dropdown-wrapper">
+                    <span class="dropdown-label">Select Hull Configuration</span>
+                    <ul class="custom-dropdown" id="configDropdown">
+                        <li class="dropdown-trigger" id="dropdownSelected">Sparta (Drone Recon Payload)</li>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" data-value="drone" data-img="images/porse_drone.png">Sparta Drone (Recon Payload)</li>
+                            <li class="dropdown-item" data-value="tires" data-img="images/porse_tires.png">Sparta Overlander (Spare Tire Stack)</li>
+                            <li class="dropdown-item" data-value="clean" data-img="images/porse_clean.png">Sparta Minimalist (Slick Roof Profile)</li>
+                            <li class="dropdown-item" data-value="radar" data-img="images/porse_radar.png">Sparta Decca SAR (Radar)</li>
+                            <li class="dropdown-item" data-value="radardrone" data-img="images/porse_radardrone.png">Sparta Drone Decca SAR (Radar Recon Payload)</li>
+                            <li class="dropdown-item" data-value="radarlarge" data-img="images/porse_radarlarge.png">Sparta Large Decca SAR (Large Radar)</li>
+                        </ul>
+                    </ul>
+
+
+                    <div class="showcase-container">
+                    <img class="showcase-img" 
+                         id="mainShowcaseImg"
+                         src="images/porse_drone.png" 
+                         alt="TankX Sparta Core Blueprint Design Presentation Array" 
+                         onclick="openLightbox(this.src)">
+                    </div>
+
+                </div>
+
+<!--                 <div class="showcase-container">
+                    <img class="showcase-img" 
+                         id="mainShowcaseImg"
+                         src="images/porse_drone.png" 
+                         alt="TankX Sparta Core Blueprint Design Presentation Array" 
+                         onclick="openLightbox(this.src)">
+                </div> -->
+
+                <ul class="spec-list active" id="specs-drone">
+                    <li><span>CHASSIS CLASS</span><span>BRUTALIST / EXOSKELETON</span></li>
+                    <li><span>PAYLOAD BAY</span><span>AUTEL ALPHA COLLABRIATION VARIANT DRONE</span></li>
+                    <li><span>RADAR CAPABILITY</span><span>SYNTHETIC APERTURE RADAR (SAR)</span></li>
+                    <li><span>ARMOR CONFIGURATION</span><span>SLOPED MONOLITHIC PLATES</span></li>
+                    <li><span>PROPULSION INTEGRATION</span><span>QUAD-MOTOR INDEPENDENT</span></li>
+                </ul>
+
+                <ul class="spec-list" id="specs-tires">
+                    <li><span>CHASSIS CLASS</span><span>BRUTALIST / OVERLANDER TRUCK</span></li>
+                    <li><span>PAYLOAD BAY</span><span>DUAL REINFORCED RUGGED TIRE PACK</span></li>
+                    <li><span>SUSPENSION ARTICULATION</span><span>660 MM ARTICULATED SHOCKS</span></li>
+                    <li><span>ARMOR CONFIGURATION</span><span>MONOLITHIC TITANIUM REINFORCED</span></li>
+                    <li><span>PROPULSION INTEGRATION</span><span>HEAVY DUAL-MOTOR INDEPENDENT</span></li>
+                </ul>
+
+                <ul class="spec-list" id="specs-clean">
+                    <li><span>CHASSIS CLASS</span><span>BRUTALIST / EXOSKELETON SLICK</span></li>
+                    <li><span>AERODYNAMIC PROFILE</span><span>LOW-DRAG MINIMALIST LINE ASSEMBLY</span></li>
+                    <li><span>SUSPENSION CLEARANCE</span><span>520 MM HIGH CLEARANCE ARMS</span></li>
+                    <li><span>ARMOR CONFIGURATION</span><span>LIGHTWEIGHT IMPACT GLASS &amp; ALLOY</span></li>
+                    <li><span>PROPULSION INTEGRATION</span><span>QUAD-MOTOR RACING VARIANT</span></li>
+                </ul>
+
+                <ul class="spec-list" id="specs-radar">
+                    <li><span>FRAME</span><span>BASE SPARTA CHASSIS</span></li>
+                    <li><span>SWEEP INDEX</span><span>AUTO_24_RPM</span></li>
+                    <li><span>RANGE FOCUS</span><span>4.5 NAUTICAL MILES</span></li>
+                    <li><span>TARGET LOCK</span><span>SPARTA_ALPHA_01</span></li>
+                    <li><span>MICROWAVE BAND</span><span>3 - 100 cm</span></li>
+                </ul>
+
+                <ul class="spec-list" id="specs-radardrone">
+                    <li><span>FRAME</span><span>BASE SPARTA CHASSIS</span></li>
+                    <li><span>PAYLOAD BAY</span><span>AUTEL ALPHA COLLABRIATION VARIANT</span></li>
+                    <li><span>SWEEP INDEX</span><span>AUTO_24_RPM</span></li>
+                    <li><span>RANGE FOCUS</span><span>4.5 NAUTICAL MILES</span></li>
+                    <li><span>TARGET LOCK</span><span>SPARTA_ALPHA_01</span></li>
+                    <li><span>MICROWAVE BAND</span><span>3 - 100 cm</span></li>
+                </ul>
+
+                <ul class="spec-list" id="specs-radarlarge">
+                    <li><span>FRAME</span><span>BASE SPARTA CHASSIS</span></li>
+                    <li><span>PAYLOAD BAY</span><span>DECCA SUPER SAR (RADAR)</span></li>
+                    <li><span>SWEEP INDEX</span><span>AUTO_24_RPM</span></li>
+                    <li><span>RANGE FOCUS</span><span>8 NAUTICAL MILES</span></li>
+                    <li><span>TARGET LOCK</span><span>SPARTA_ALPHA_01</span></li>
+                    <li><span>MICROWAVE BAND</span><span>1 - 300 cm</span></li>
+                </ul>
+
+            </main>
+
+            <aside class="card radar-panel">
+                <h2>Decca Radar Telemetry</h2>
+                <p>Vintage sweeps combined with modern Synthetic Aperture Radar data arrays to monitor drone, 3D chassis positioning and other obstacle indexing.</p>
+                
+                <div class="radar-container">
+                    <div class="radar-scope">
+                        <div class="radar-sweep"></div>
+                        <div class="radar-grid-line line-1"></div>
+                        <div class="radar-grid-line line-2"></div>
+                        <div class="radar-cross-h"></div>
+                        <div class="radar-cross-v"></div>
+                        <div class="blip-chassis"></div>
+                    </div>
+                </div>
+
+                <ul class="spec-list active">
+                    <li><span>SWEEP INDEX</span><span>AUTO_24_RPM</span></li>
+                    <li><span>RANGE FOCUS</span><span>4.5 NAUTICAL MILES</span></li>
+                    <li><span>TARGET LOCK</span><span>SPARTA_ALPHA_01</span></li>
+                    <li><span>MICROWAVE BAND</span><span>3 - 100 cm</span></li>
+                </ul>
+            </aside>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Risto Ikonen. Built for local development testing via GitHub Pages.</p>
+        </footer>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged Telemetry Blueprint Element View">
+    </div>
+
+    <script>
+        const dropdown = document.getElementById('configDropdown');
+        const trigger = document.getElementById('dropdownSelected');
+        const mainImg = document.getElementById('mainShowcaseImg');
+
+        // Toggle dropdown open state
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+
+        // Loop array and append active listeners onto choice targets
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // Get chosen target properties
+                const configName = this.textContent;
+                const newImgSrc = this.getAttribute('data-img');
+                const specId = this.getAttribute('data-value');
+
+                // Update visual Trigger Box Element view text content
+                trigger.textContent = configName;
+                
+                // Hide Dropdown Option list box completely
+                dropdown.classList.remove('open');
+
+                // Update Showcase Frame Media Src target
+                mainImg.style.opacity = '0.3';
+                setTimeout(() => {
+                    mainImg.src = newImgSrc;
+                    mainImg.style.opacity = '1';
+                }, 150);
+
+                // Update the visible specification text data arrays dynamically
+                document.querySelectorAll('main .spec-list').forEach(list => {
+                    list.classList.remove('active');
+                });
+                document.getElementById('specs-' + specId).classList.add('active');
+            });
+        });
+
+        // Close dropdown when clicking outside window space completely
+        window.addEventListener('click', function() {
+            dropdown.classList.remove('open');
+        });
+
+        // Lightbox Handler Mechanics
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
