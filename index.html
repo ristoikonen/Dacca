@@ -9,7 +9,6 @@
 <title>TonkaWonka | Tough Cars for Adventurers</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-
 <script>
   
   document.addEventListener('DOMContentLoaded', () => {
@@ -281,6 +280,17 @@ button{font-family:'Montserrat',sans-serif;cursor:pointer;border:none;background
   </div>
 </nav>
 
+<!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
+<el-dropdown class="inline-block">
+  <button class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+    Options
+    <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="-mr-1 size-5 text-gray-400">
+      <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+    </svg>
+  </button>
+
+
 <!-- Hero -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
@@ -298,6 +308,10 @@ button{font-family:'Montserrat',sans-serif;cursor:pointer;border:none;background
     </div>
   </div>
 </section>
+
+
+
+
 
 <!-- Features -->
 <section class="section features" id="features">

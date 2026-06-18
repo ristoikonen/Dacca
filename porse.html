@@ -289,7 +289,7 @@
 
         .spec-list span:last-child {
             color: #fff;
-            font-weight: bold;
+
         }
 
         /* Integrated Decca Radar Style Component */
@@ -417,6 +417,16 @@
             font-size: 0.85rem;
         }
 
+        ul {
+            padding: 10px;             /* Adds space between the frame and the text */
+            list-style-position: inside; /* Keeps bullet points inside the frame */
+        }
+        
+        li {
+            font-size: 14px; /* Adjust the pixels to your preferred size */
+        }
+
+
 
     /* ─── PRIMARY NAV ─── */
     .primary-nav{
@@ -525,11 +535,10 @@
 
         <div class="grid">
             <main class="card">
-                <h2>Design Profile: Sparta Core Modules</h2>
-                <p>Select a modular configuration payload utilizing the secure selector interface frame below to deploy distinctive functional metrics across the base monocoque architecture.</p>
-                
+                <h2>Configure Payload Below</h2>
+                        
                 <div class="dropdown-wrapper">
-                    <span class="dropdown-label">Select Hull Configuration</span>
+                    
                     <ul class="custom-dropdown" id="configDropdown">
                         <li class="dropdown-trigger" id="dropdownSelected">Sparta (Drone Recon Payload)</li>
                         <ul class="dropdown-menu">
