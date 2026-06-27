@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TonkaWonka Family Power - rugged family sports car with radar capabilities.">
+<meta name="author" content="Risto Ikonen">
+<meta name="keywords" content="tonkawonka, family power, sports car, radar, sar">
+
+<title>TonkaWonka | Family Power</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const closeBtn = document.getElementById('closeModal');
+  const thumbnails = document.querySelectorAll('.thumbnail-trigger');
+
+  if (modal && modalImg && closeBtn) {
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImg.src = thumb.src;
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+<style>
+    :root {
+        --bg-primary: #121214;
+        --bg-secondary: #1a1a1e;
+        --accent-orange: #ff6b00;
+        --radar-green: #00ff66;
+        --text-main: #e2e8f0;
+        --text-muted: #64748b;
+        --border-color: #2e2e38;
+        --bgc:#F5F0E8;
+        --bgd:#563A1E;
+        --rugged:#8B4513;
+        --rugged-light:#A0522D;
+        --power-red: #ff4444;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    img{display:block;width:100%;object-fit:cover}
+
+    /* ─── POWER BANNER ─── */
+    .power-banner {
+        background: linear-gradient(90deg, var(--power-red) 0%, #ff6633 50%, var(--accent-orange) 100%);
+        color: var(--white);
+        text-align: center;
+        padding: 1.2rem 2rem;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 1.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+        margin: 0;
+    }
+
+    /* ─── MODAL / POPUP ─── */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(26,23,20,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .4s ease;
+    }
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-content {
+      max-width: 90%;
+      max-height: 80vh;
+      object-fit: contain;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
+
+    .thumbnail-trigger {
+      cursor: pointer;
+      transition: opacity .25s;
+      margin-top: 1rem;
+    }
+    .thumbnail-trigger:hover {
+      opacity: 0.8;
+    }
+    .close-btn {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 2rem;
+      color: var(--white);
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .hero-bg{
+        background:
+            radial-gradient(ellipse at 30% 60%,rgba(139,69,19,.12) 0%,transparent 60%),
+            radial-gradient(ellipse at 75% 30%,rgba(28,48,40,.25) 0%,transparent 55%),
+            linear-gradient(170deg,#251B14 0%,#1A1714 40%,#654321 100%);
+    }
+
+    body {
+        background-color: var(--bgd);
+        color: var(--text-main);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        padding: 2rem 1rem;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    header {
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 1.5rem;
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .topi div {
+        color: var(--bgc);
+        font-size: 0.9rem;
+        font-family:'Montserrat',sans-serif;font-weight:500;
+    }
+
+    .logo-area h1 {
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent-orange);
+    }
+
+    .logo-area p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-family: monospace;
+    }
+
+    .version {
+        font-family: monospace;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .grid {
+            grid-template-columns: 1.2fr 0.8fr;
+        }
+    }
+
+    .card {
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--accent-orange);
+    }
+
+    .card.telemetry::before {
+        background: var(--radar-green);
+    }
+
+    .card.power-accent::before {
+        background: var(--power-red);
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        color: #fff;
+    }
+
+    p {
+        margin-bottom: 1rem;
+        color: #cbd5e1;
+    }
+
+    .spec-list {
+        list-style: none;
+        margin-top: 1.5rem;
+        font-family: monospace;
+    }
+
+    .spec-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed var(--border-color);
+    }
+
+    .spec-list span:first-child {
+        color: var(--text-muted);
+    }
+
+    /* Radar Widget Styling */
+    .radar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    .radar-scope {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        border: 2px solid var(--radar-green);
+        background: radial-gradient(circle, rgba(0,255,102,0.15) 0%, rgba(0,0,0,0.8) 80%);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+    }
+
+    .radar-sweep {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background: linear-gradient(45deg, rgba(0,255,102,0.4) 0%, rgba(0,255,102,0) 70%);
+        transform-origin: bottom right;
+        top: 0;
+        left: 0;
+        animation: sweep 4s linear infinite;
+    }
+
+    .radar-grid-line {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px dashed rgba(0, 255, 102, 0.3);
+        border-radius: 50%;
+    }
+
+    .line-1 { width: 70%; height: 70%; }
+    .line-2 { width: 40%; height: 40%; }
+
+    .radar-cross-h {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background: rgba(0, 255, 102, 0.2);
+    }
+
+    .radar-cross-v {
+        position: absolute;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        background: rgba(0, 255, 102, 0.2);
+    }
+
+    .blip {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: var(--radar-green);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--radar-green);
+        top: 35%;
+        left: 65%;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes sweep {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+        0% { opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { opacity: 0.4; }
+    }
+
+    footer {
+        margin-top: 5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+        font-family: monospace;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
+    ul {
+        padding: 10px;
+        list-style-position: inside;
+    }
+    
+    li {
+        font-size: 14px;
+    }
+    
+    /* ─── PRIMARY NAV ─── */
+    .primary-nav{
+        position:sticky;top:0;z-index:200;
+        background:var(--white);
+        border-bottom:1px solid var(--rule);
+    }
+    .nav-inner{
+        display:flex;align-items:center;justify-content:space-between;
+        padding:0 3rem;height:var(--nav-h);
+    }
+    .nav-logo{text-align:center}
+    .nav-logo-name{
+        font-family:'Playfair Display',serif;
+        font-size:1.1rem;letter-spacing:.12em;
+        color:var(--ink);line-height:1.1;
+    }
+    .nav-logo-sub{
+        font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;
+        color:var(--rugged);margin-top:2px;
+    }
+    .nav-links{display:flex;gap:.25rem;list-style:none}
+    .nav-links>li>a,.nav-links>li>span{
+        display:block;padding:.5rem .85rem;
+        font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+        color:var(--ink-soft);transition:color .25s;
+        cursor:pointer;
+    }
+    .nav-links>li>a:hover,.nav-links>li>span:hover{color:var(--rugged)}
+    .nav-reserve{
+        background:var(--rugged);color:var(--white);
+        font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+        padding:.6rem 1.4rem;transition:background .25s;
+        font-family:'Montserrat',sans-serif;font-weight:500;
+    }
+    .nav-reserve:hover{background:var(--ink)}
+
+    .hero-title{
+        font-family:'Playfair Display',serif;
+        font-size:clamp(2.8rem,6.5vw,5.6rem);
+        font-weight:400;line-height:1.08;letter-spacing:.04em;
+        color:var(--white);
+        animation:fadeUp .9s .12s ease both;
+    }
+    .hero-title em{font-style:italic;color:var(--power-red)}
+
+    /* ─── TOP BAR ─── */
+    .top-bar{
+        background:var(--ink);
+        display:flex;align-items:center;justify-content:space-between;
+        padding:0 3rem;height:36px;
+        font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.55);
+    }
+    .top-bar a{color:rgba(245,240,232,.55);transition:color .25s}
+    .top-bar a:hover{color:var(--gold-light)}
+    .top-bar-left,.top-bar-right{display:flex;align-items:center;gap:2rem}
+    .top-bar-divider{width:1px;height:14px;background:rgba(255,255,255,.15)}
+
+</style>
+</head>
+
+<body class="hero-bg">
+    <div class="power-banner">
+        Sigge + Harald + Theo = <span style="color: #ffff00;">POWER!</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="hero-content">
+                <div class="hero-eyebrow">FAMILY POWER</div>
+                <div class="nav-logo-sub">SYS_VER // 2.1.24</div>
+                <h1 class="hero-title">Tonka<em>Family</em></h1>
+            </div>
+            <div class="logo-area">
+                <p class="version">FAMPOW_ALPHA</p>
+            </div>
+        </header>
+
+        <div class="top-bar">
+            <div class="top-bar-left">
+            </div>
+            <div class="top-bar-right">
+                <div class="top-bar-divider"></div>
+                <a href="tonkawonka-family.html">Family Cruiser</a>
+                <div class="top-bar-divider"></div>
+                <a href="sparta.html">Sparta Concept</a>
+                <div class="top-bar-divider"></div>
+                <a href="index.html">Main page</a>
+                <div class="top-bar-divider"></div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Main Asset Presentation Panel -->
+            <main class="card">
+                <h2>Family Power Concept: Rugged Sports Car</h2>
+                <p>The Family Power variant combines TonkaWonka's legendary toughness with high-performance sports car dynamics. Engineered for families who demand both adventure capability and spirited driving experience. Built with integrated radar for situational awareness on every journey.</p>
+
+                <img src="images/TonkaFamPOWER.png" alt="TonkaWonka Family Power Sports Car" class="thumbnail-trigger" >
+
+                <ul class="spec-list">
+                    <li><span>CHASSIS CLASS</span><span>PERFORMANCE FAMILY SPORTS</span></li>
+                    <li><span>ACCELERATION</span><span>0-100 KM/H IN 6.2 SECONDS</span></li>
+                    <li><span>RADAR CAPABILITY</span><span>INTEGRATED FAMILY SAFETY RADAR</span></li>
+                    <li><span>FAMILY SEATING</span><span>5 PERFORMANCE-TUNED SEATS</span></li>
+                    <li><span>POWERTRAIN</span><span>QUAD-MOTOR SYNCHRONIZED AWD</span></li>
+                </ul>
+            </main>
+
+            <!-- Family Radar Telemetry Widget -->
+            <aside class="card telemetry">
+                <h2>Family Radar Array</h2>
+                <p>Real-time family positioning, obstacle detection, and adventure tracking. Three hearts beating as one on every road.</p>
+                
+                <div class="radar-container">
+                    <div class="radar-scope">
+                        <div class="radar-sweep"></div>
+                        <div class="radar-grid-line line-1"></div>
+                        <div class="radar-grid-line line-2"></div>
+                        <div class="radar-cross-h"></div>
+                        <div class="radar-cross-v"></div>
+                        <div class="blip"></div>
+                    </div>
+                </div>
+
+                <ul class="spec-list" style="margin-top: 1rem; font-size: 0.85rem;">
+                    <li><span>SWEEP INDEX</span><span>AUTO_36_RPM</span></li>
+                    <li><span>RANGE FOCUS</span><span>6.2 NAUTICAL MILES</span></li>
+                    <li><span>TARGET LOCK</span><span>FAMILY_POWER_01</span></li>
+                    <li><span>DETECTION RANGE</span><span>ALL TERRAIN ADAPTIVE</span></li>
+                </ul>
+            </aside>
+
+            <!-- Family Power Performance Card -->
+            <aside class="card power-accent">
+                <h2>The Power Within</h2>
+                <p>Sigge, Harald, and Theo united in one vehicle. Every journey is an expedition. Every challenge conquered together. This is more than a car—it's the embodiment of family strength and adventure spirit.</p>
+
+                <ul class="spec-list">
+                    <li><span>HEARTS ON BOARD</span><span>3 BRAVE SOULS</span></li>
+                    <li><span>ADVENTURE SPIRIT</span><span>MAXIMUM CAPACITY</span></li>
+                    <li><span>FAMILY BONDS</span><span>UNBREAKABLE</span></li>
+                    <li><span>POWER OUTPUT</span><span>LIMITLESS LOVE + QUAD MOTORS</span></li>
+                </ul>
+            </aside>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Risto Ikonen. Built for local development testing via GitHub Pages.</p>
+        </footer>
+
+        <!-- Global Image Modal -->
+        <div id="imageModal" class="modal">
+            <span id="closeModal" class="close-btn">&times;</span>
+            <img id="modalImg" class="modal-content" src="" alt="Enlarged View">
+        </div>
+    </div>
+
+</body>
+</html>
