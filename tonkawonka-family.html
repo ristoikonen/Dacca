@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TonkaWonka Family Cruiser for a mother and her children." />
+  <meta name="author" content="Risto Ikonen" />
+  <title>TonkaWonka | Family Cruiser</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1714;
+      --bone: #f5f0e8;
+      --bone-dark: #ede6d6;
+      --gold: #b8924a;
+      --gold-light: #d4ad6f;
+      --rugged: #8b4513;
+      --rugged-light: #a0522d;
+      --muted: #6f675d;
+      --white: #ffffff;
+      --rule: rgba(184, 146, 74, 0.28);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--ink);
+      background: linear-gradient(135deg, #fffaf2 0%, var(--bone) 100%);
+      line-height: 1.6;
+    }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 2rem;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .brand span { color: var(--rugged); }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 0 3rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: rgba(184, 146, 74, 0.16);
+      color: var(--rugged);
+      font-size: 0.74rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .lead {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 1.35rem;
+      border-radius: 999px;
+      background: var(--rugged);
+      color: var(--white);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); background: var(--ink); }
+
+    .btn.secondary {
+      background: var(--bone-dark);
+      color: var(--ink);
+      border: 1px solid var(--rule);
+    }
+
+    .hero-card,
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      box-shadow: 0 16px 48px rgba(26, 23, 20, 0.07);
+      overflow: hidden;
+    }
+
+    .hero-card img {
+      height: 420px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .info-card { padding: 1.3rem; }
+
+    .wireframe-card {
+      margin-top: 2rem;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, rgba(245, 240, 232, 0.95), rgba(255, 255, 255, 0.95));
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      box-shadow: 0 16px 48px rgba(26, 23, 20, 0.07);
+    }
+
+    .wireframe-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .wireframe-card p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .info-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .info-card p, .info-card li {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .info-card ul { padding-left: 1rem; margin-top: 0.6rem; }
+
+    .spec-list {
+      display: grid;
+      gap: 0.45rem;
+      margin-top: 0.8rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .spec-list li {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px dashed var(--rule);
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="top-nav">
+      <a class="brand" href="index.html">Tonka<span>Wonka</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="sparta.html">Sparta</a>
+        <a href="porse.html">Core</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Family-safe concept car</div>
+        <h1>Family Cruiser<br />built for everyday adventure.</h1>
+        <p class="lead">
+          This new TonkaWonka model was designed around family life: roomy, safe, playful, and ready for school runs, weekend adventures, and all the little journeys in between.
+        </p>
+        <div class="cta-row">
+          <a class="btn" href="index.html#models">See the lineup</a>
+          <a class="btn secondary" href="sparta.html">Explore Sparta</a>
+        </div>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h2>Why this family car</h2>
+            <p>It combines sturdy TonkaWonka toughness with calm, comfort-first family design.</p>
+            <ul>
+              <li>Wide rear seat for two children and a parent</li>
+              <li>Easy entry and soft interior touchpoints</li>
+              <li>High safety visibility and calm ride feel</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h2>Model highlights</h2>
+            <ul class="spec-list">
+              <li><span>Drive</span><strong>All-terrain AWD</strong></li>
+              <li><span>Seating</span><strong>5 comfort seats</strong></li>
+              <li><span>Safety</span><strong>Child-ready cabin</strong></li>
+              <li><span>Finish</span><strong>Scratch-safe matte shell</strong></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="images/TonkaSparta.png" alt="TonkaWonka Family Cruiser concept car" />
+      </div>
+    </section>
+
+    <section class="wireframe-card">
+      <h2>Wireframe concept</h2>
+      <p>A simple front-facing blueprint of the Family Cruiser, designed for a family of five: 
+        Father who loves the outdoors, our cool mother, two wild boys, and our loveliest 
+        (is that official word?... who cares as she really is lovely!) little girl. 
+        Broad stance, roofline, and roomy cabin built for them all.</p>
+      <svg viewBox="0 0 800 340" role="img" aria-label="Wireframe of the TonkaWonka Family Cruiser">
+        <rect x="80" y="90" width="640" height="150" rx="60" fill="none" stroke="#8b4513" stroke-width="4" />
+        <rect x="170" y="70" width="180" height="70" rx="24" fill="none" stroke="#b8924a" stroke-width="3" />
+        <rect x="450" y="70" width="150" height="70" rx="24" fill="none" stroke="#b8924a" stroke-width="3" />
+        <rect x="200" y="150" width="360" height="70" rx="20" fill="none" stroke="#1a1714" stroke-width="3" />
+        <circle cx="240" cy="240" r="44" fill="none" stroke="#1a1714" stroke-width="4" />
+        <circle cx="560" cy="240" r="44" fill="none" stroke="#1a1714" stroke-width="4" />
+        <line x1="300" y1="120" x2="430" y2="120" stroke="#8b4513" stroke-width="3" />
+        <line x1="180" y1="95" x2="180" y2="145" stroke="#b8924a" stroke-width="3" />
+        <line x1="620" y1="95" x2="620" y2="145" stroke="#b8924a" stroke-width="3" />
+        <line x1="320" y1="150" x2="320" y2="220" stroke="#1a1714" stroke-width="2" />
+        <line x1="480" y1="150" x2="480" y2="220" stroke="#1a1714" stroke-width="2" />
+      </svg>
+    </section>
+  </main>
+</body>
+</html>
